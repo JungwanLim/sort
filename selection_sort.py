@@ -19,24 +19,20 @@ class SelectionSort(BaseSorts):
 
 class MinMaxSort(BaseSorts):
     def mm_sort(self, arr, size):
-        max_pos, i, j, j_max = 0, 0, 0, self.n - 1
-        while i < j_max:
-            min_pos = i
-            j = max_pos = j_max
-            while i <= j:
+        min_pos, first, max_pos, last = 0, 0, 0, size - 1
+        while first < last:
+            min_pos = max_pos = first
+            for j in range(first, last + 1):
                 if arr[min_pos] > arr[j]:
                     min_pos = j
                 elif arr[max_pos] < arr[j]:
                     max_pos = j
-                j -= 1
-            if i != min_pos:
-                arr[i], arr[min_pos] = arr[min_pos], arr[i]
-                if i == max_pos:
-                    max_pos = min_pos
-            if j_max != max_pos:
-                arr[j_max], arr[max_pos] = arr[max_pos], arr[j_max]
-            i += 1
-            j_max -= 1
+            arr[first], arr[min_pos] = arr[min_pos], arr[first]
+            if first == max_pos:
+                max_pos = min_pos
+            arr[last], arr[max_pos] = arr[max_pos], arr[last]
+            first += 1
+            last -= 1
 
     def sorts(self):
         self.mm_sort(self.sort_list, self.n)
